@@ -1,0 +1,32 @@
+function enviarcorreo() {
+  const libro = SpreadsheetApp.getActiveSpreadsheet()
+  const hoja = libro.getActiveSheet();
+
+  for (var fila = 2; fila <= hoja.getLastRow(); fila++) {
+    const destinatariocorreo = hoja.getRange(fila, 2).getValue()
+    const nombrecliente = hoja.getRange(fila, 1).getValue()
+    const cantidadpuntosCanjeados = hoja.getRange(fila, 3).getValue()
+    const cantidadpuntosDisponibles = hoja.getRange(fila, 4).getValue()
+
+    MailApp.sendEmail({
+      to: destinatariocorreo,
+      subject: "Mensaje Informativo para " + nombrecliente + " de parte de C&M Residuos Cero",
+      htmlBody: "<p>Cordial saludo, estimad@ " + nombrecliente + ",</p>" +
+        "<div>" +
+        "<div><span>Este es un mensaje autom&aacute;tico de C&amp;M Residuos Cero. Tiene como finalidad informarte los puntos con los que cuentas actualmente, los cuales pueden ser intercambiados por v&iacute;veres.</span></div><br>" +
+        "<div>Hasta la fecha, hemos registrado que has intercambiado <strong>" + new Intl.NumberFormat().format(cantidadpuntosCanjeados) + " puntos</strong>.</div>" +
+        "<div>Actualmente tienes disponibles <strong>" + new Intl.NumberFormat().format(cantidadpuntosDisponibles) + " puntos</strong>, que puedes cambiar por v&iacute;veres en nuestros puntos autorizados.</div><br>" +
+        "<div><span>Agradecemos tu compromiso con el medio ambiente, y confiamos en que juntos estamos contribuyendo a la seguridad alimentaria.</span></div><br>" +
+        "<div>Atentamente,</div><br>" +
+        "<div>C&M Residuos Cero</div>" +
+        "<div>Celular Choach&iacute;: <a href='tel:+573209873154'>+57 3209873154</a></div>" +
+        "<div>Celular F&oacute;meque: <a href='tel:+573011816186'>+57 3011816186</a></div>" +
+        "<div>Sitio Web: <a href='https://edwinr2000.github.io/previoC-M/index.html'>https://edwinr2000.github.io/previoC-M/index.html</a></div>" +
+        "</div>"
+
+    });
+
+
+
+  }
+}
